@@ -143,8 +143,6 @@ export function CustomSideBar({
       <SidebarContent>
         <NavMain
           items={data.navMain}
-          role={session?.user?.role}
-          category={session?.user?.userCategory}
         />
       </SidebarContent>
       <SidebarFooter>
