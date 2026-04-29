@@ -11,6 +11,22 @@ import {
 } from "lucide-react";
 
 export default function QRScanner() {
+  // useEffect(() => {
+  //   const fetchh=async()=>{
+  //     const res = await fetch(
+  //       `https://micro-backend-nf3s.onrender.com/parking/door`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ qrId:"123" }),
+  //       }
+  //     );
+  //     console.log(res);
+  //   }
+  //   fetchh();
+  // },[])
   const scannerRef = useRef<Html5Qrcode | null>(null);
 
   const [isScanning, setIsScanning] = useState(false);
@@ -61,7 +77,7 @@ export default function QRScanner() {
 
             // ✅ 2. Send to backend
             const res = await fetch(
-              `${process.env.NEXT_PUBLIC_API_BASE_URL}/parking/door`,
+              `https://micro-backend-nf3s.onrender.com/parking/door`,
               {
                 method: "POST",
                 headers: {
