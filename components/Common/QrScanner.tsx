@@ -61,7 +61,7 @@ export default function QRScanner() {
 
             // ✅ 2. Send to backend
             const res = await fetch(
-              `${process.env.NEXT_PUBLIC_API_URL}/qr/verify`,
+              `${process.env.NEXT_PUBLIC_API_URL}/parking/door`,
               {
                 method: "POST",
                 headers: {
