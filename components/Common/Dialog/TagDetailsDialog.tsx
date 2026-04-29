@@ -26,20 +26,20 @@ const TagDetailsDialog = ({
     setIsOpen(!isOpen);
   };
 
-  if (
-    ["qualité", "productions", "maintenance"].includes(
-      session?.user?.userService || ""
-    )
-  ) {
-    return (
-      <Link
-        href={`tag-panel/tag?tagId=${tag.tagId}`}
-        className="flex justify-center items-center w-full py-2.5 bg-greenAccent-900 bg-opacity-80 text-base font-semibold text-grayscale-100 rounded-sm"
-      >
-        Show Tag
-      </Link>
-    );
-  }
+  // if (
+  //   ["qualité", "productions", "maintenance"].includes(
+  //     session?.user?.userService || ""
+  //   )
+  // ) {
+  //   return (
+  //     <Link
+  //       href={`tag-panel/tag?tagId=${tag.tagId}`}
+  //       className="flex justify-center items-center w-full py-2.5 bg-greenAccent-900 bg-opacity-80 text-base font-semibold text-grayscale-100 rounded-sm"
+  //     >
+  //       Show Tag
+  //     </Link>
+  //   );
+  // }
   return (
     <Dialog open={isOpen} onOpenChange={closeDialog}>
       <DialogTrigger
