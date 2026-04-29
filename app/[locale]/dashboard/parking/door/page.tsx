@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import axios from "@/utils/axios";
 import useDoorQr from "@/hooks/useDoorQr";
 
 const DoorQrDisplay = () => {

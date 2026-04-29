@@ -22,6 +22,7 @@ export default function QRScanner() {
       setLoading(true);
       setResult("");
 
+      // Clean previous instance
       if (scannerRef.current) {
         try {
           await scannerRef.current.stop();
@@ -42,19 +43,57 @@ export default function QRScanner() {
           qrbox: { width: 250, height: 250 },
         },
         async (decodedText) => {
-          setResult(decodedText);
-
-          if (decodedText.startsWith("http")) {
-            window.open(decodedText, "_blank");
-          }
-
           try {
-            await qrCode.stop();
-            await qrCode.clear();
-          } catch {}
+            setLoading(true);
 
-          scannerRef.current = null;
-          setIsScanning(false);
+            // ✅ 1. Parse QR
+            let qrId = "";
+            try {
+              const parsed = JSON.parse(decodedText);
+              qrId = parsed.qrId;
+            } catch {
+              throw new Error("Invalid QR format");
+            }
+
+            if (!qrId) {
+              throw new Error("QR ID missing");
+            }
+
+            // ✅ 2. Send to backend
+            const res = await fetch(
+              `${process.env.NEXT_PUBLIC_API_URL}/qr/verify`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ qrId }),
+              }
+            );
+
+            const data = await res.json();
+
+            if (!res.ok) {
+              throw new Error(data.message || "Verification failed");
+            }
+
+            // ✅ 3. SUCCESS
+            setResult(data.message || "✅ Access Granted");
+          } catch (error: any) {
+            console.error(error);
+            setResult("❌ Invalid or expired QR");
+          } finally {
+            setLoading(false);
+
+            // ✅ Stop scanner
+            try {
+              await qrCode.stop();
+              await qrCode.clear();
+            } catch {}
+
+            scannerRef.current = null;
+            setIsScanning(false);
+          }
         },
         () => {}
       );
@@ -97,53 +136,35 @@ export default function QRScanner() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        {/* Card */}
-        <div className="overflow-hidden rounded-3xl border border-white/40 bg-gradient-to-br from-gray-100 via-white to-gray-200  shadow-2xl backdrop-blur-xl">
+        <div className="overflow-hidden rounded-3xl border border-white/40 bg-gradient-to-br from-gray-100 via-white to-gray-200 shadow-2xl backdrop-blur-xl">
+          
           {/* Header */}
-          <div className="flex items-center gap-3 border-b border-gray-200/50 px-6 py-5">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-black text-white shadow-lg">
+          <div className="flex items-center gap-3 border-b px-6 py-5">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-black text-white">
               <QrCode className="h-5 w-5" />
             </div>
 
             <div>
-              <h2 className="text-base font-semibold text-gray-900">
-                QR Scanner
-              </h2>
-              <p className="text-xs text-gray-500">
-                Scan instantly with camera
-              </p>
+              <h2 className="text-base font-semibold">QR Scanner</h2>
+              <p className="text-xs text-gray-500">Scan to open gate</p>
             </div>
           </div>
 
           {/* Scanner */}
           <div className="p-5">
-            <div className="relative h-[320px] overflow-hidden rounded-2xl bg-black shadow-inner">
-              <div id="qr-reader" className="h-full w-full overflow-hidden" />
+            <div className="relative h-[320px] rounded-2xl bg-black overflow-hidden">
+              <div id="qr-reader" className="h-full w-full" />
 
-              {/* Loading */}
               {loading && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/70 backdrop-blur-md">
+                <div className="absolute inset-0 flex items-center justify-center bg-black/70">
                   <Loader2 className="h-8 w-8 animate-spin text-white" />
-                  <p className="text-sm text-white/90">Starting camera...</p>
                 </div>
               )}
 
-              {/* Scanning UI */}
               {isScanning && !loading && (
-                <div className="pointer-events-none absolute inset-0">
-                  {/* glowing frame */}
-                  <div className="absolute inset-5 rounded-2xl border border-white/60 shadow-[0_0_25px_rgba(255,255,255,0.15)]" />
-
-                  {/* animated scan line */}
-                  <div className="absolute left-5 right-5 top-10 h-[2px] animate-pulse bg-gradient-to-r from-transparent via-white to-transparent opacity-70" />
-
-                  {/* bottom badge */}
-                  <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white/10 px-4 py-2 backdrop-blur-md">
-                    <ScanLine className="h-4 w-4 text-white" />
-                    <span className="text-xs font-medium text-white">
-                      Scanning...
-                    </span>
-                  </div>
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute inset-5 border border-white rounded-2xl" />
+                  <div className="absolute left-5 right-5 top-10 h-[2px] bg-white animate-pulse" />
                 </div>
               )}
             </div>
@@ -151,22 +172,17 @@ export default function QRScanner() {
 
           {/* Result */}
           {result && (
-            <div className="border-t border-gray-200/50 bg-white/60 px-5 py-4 backdrop-blur-md">
+            <div className="border-t px-5 py-4">
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="h-5 w-5 text-green-500" />
 
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-gray-900">
-                    QR Detected
-                  </p>
-
-                  <p className="mt-1 break-all text-xs text-gray-600">
-                    {result}
-                  </p>
+                  <p className="text-sm font-semibold">Result</p>
+                  <p className="text-xs text-gray-600 mt-1">{result}</p>
 
                   <button
                     onClick={restartScanner}
-                    className="mt-4 inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2 text-xs font-medium text-white transition hover:scale-[1.02] hover:opacity-90"
+                    className="mt-4 bg-black text-white px-4 py-2 rounded-xl text-xs flex items-center gap-2"
                   >
                     <RotateCcw className="h-4 w-4" />
                     Scan again
