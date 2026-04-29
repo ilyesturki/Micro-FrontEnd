@@ -4,30 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 import {
   QrCode,
-  ScanLine,
   CheckCircle2,
   RotateCcw,
   Loader2,
 } from "lucide-react";
 
 export default function QRScanner() {
-  // useEffect(() => {
-  //   const fetchh=async()=>{
-  //     const res = await fetch(
-  //       `https://micro-backend-nf3s.onrender.com/parking/door`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ qrId:"123" }),
-  //       }
-  //     );
-  //     console.log(res);
-  //   }
-  //   fetchh();
-  // },[])
   const scannerRef = useRef<Html5Qrcode | null>(null);
+  const isProcessingRef = useRef(false);
 
   const [isScanning, setIsScanning] = useState(false);
   const [result, setResult] = useState("");
@@ -38,7 +22,10 @@ export default function QRScanner() {
       setLoading(true);
       setResult("");
 
-      // Clean previous instance
+      // reset lock
+      isProcessingRef.current = false;
+
+      // clean previous instance
       if (scannerRef.current) {
         try {
           await scannerRef.current.stop();
@@ -59,11 +46,15 @@ export default function QRScanner() {
           qrbox: { width: 250, height: 250 },
         },
         async (decodedText) => {
+          // 🚫 prevent multiple scans
+          if (isProcessingRef.current) return;
+          isProcessingRef.current = true;
+
           try {
             setLoading(true);
 
-            // ✅ 1. Parse QR
             let qrId = "";
+
             try {
               const parsed = JSON.parse(decodedText);
               qrId = parsed.qrId;
@@ -71,11 +62,18 @@ export default function QRScanner() {
               throw new Error("Invalid QR format");
             }
 
-            if (!qrId) {
-              throw new Error("QR ID missing");
-            }
+            if (!qrId) throw new Error("QR ID missing");
 
-            // ✅ 2. Send to backend
+            // ✅ STOP scanner immediately
+            try {
+              await qrCode.stop();
+              await qrCode.clear();
+            } catch {}
+
+            scannerRef.current = null;
+            setIsScanning(false);
+
+            // 🔥 API CALL
             const res = await fetch(
               `https://micro-backend-nf3s.onrender.com/parking/door`,
               {
@@ -93,22 +91,12 @@ export default function QRScanner() {
               throw new Error(data.message || "Verification failed");
             }
 
-            // ✅ 3. SUCCESS
             setResult(data.message || "✅ Access Granted");
-          } catch (error: any) {
+          } catch (error) {
             console.error(error);
             setResult("❌ Invalid or expired QR");
           } finally {
             setLoading(false);
-
-            // ✅ Stop scanner
-            try {
-              await qrCode.stop();
-              await qrCode.clear();
-            } catch {}
-
-            scannerRef.current = null;
-            setIsScanning(false);
           }
         },
         () => {}
@@ -144,6 +132,7 @@ export default function QRScanner() {
 
   useEffect(() => {
     startScanner();
+
     return () => {
       stopScanner();
     };
@@ -152,8 +141,8 @@ export default function QRScanner() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <div className="overflow-hidden rounded-3xl border border-white/40 bg-gradient-to-br from-gray-100 via-white to-gray-200 shadow-2xl backdrop-blur-xl">
-          
+        <div className="overflow-hidden rounded-3xl border bg-white shadow-xl">
+
           {/* Header */}
           <div className="flex items-center gap-3 border-b px-6 py-5">
             <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-black text-white">
@@ -180,7 +169,6 @@ export default function QRScanner() {
               {isScanning && !loading && (
                 <div className="absolute inset-0 pointer-events-none">
                   <div className="absolute inset-5 border border-white rounded-2xl" />
-                  <div className="absolute left-5 right-5 top-10 h-[2px] bg-white animate-pulse" />
                 </div>
               )}
             </div>
@@ -207,6 +195,7 @@ export default function QRScanner() {
               </div>
             </div>
           )}
+
         </div>
       </div>
     </div>
