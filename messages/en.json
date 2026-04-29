@@ -12,14 +12,16 @@
       "submitButton": "Log In",
       "usernameLabel": "Username",
       "passwordLabel": "Password",
-      "forgotPasswordButton": "Forgot Password?"
+      "forgotPasswordButton": "Forgot Password?",
+      "createAccountButton": "Create account"
     }
   },
   "ForgetPasswordPage": {
     "title": "Recover account",
     "form": {
       "submitButton": "Send Code",
-      "usernameLabel": "Username"
+      "usernameLabel": "Username",
+      "createAccountButton": "Create account"
     }
   },
   "VerifyResetCodePage": {
@@ -51,7 +53,7 @@
     }
   },
   "CreateUserPage": {
-    "pageTitle": "Create New User",
+    "title": "Create your account",
     "firstNameLabel": "User First Name",
     "firstNamePlaceholder": "Enter User First Name",
     "lastNameLabel": "User Last Name",
@@ -68,7 +70,10 @@
     "imageLabel": "User Image",
     "imagePlaceholder": "Drop your image here, or browse",
     "mainButton": "Save",
-    "secondaryButton": "Reset"
+    "secondaryButton": "Reset",
+    "forgotPasswordButton": "Forgot Password?",
+    "submitButton": "Save",
+    "signInButton": "Back to login"
   },
   "EditUserPage": {
     "firstNameLabel": "User First Name",

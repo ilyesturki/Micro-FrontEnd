@@ -11,9 +11,9 @@ const Activate = ({ AuthButtonTitle }: { AuthButtonTitle: string }) => {
     <>
       <CustomAuthInput
         label={t("employeeNumberLabel")}
-        value={activateData.mat}
+        value={activateData.email}
         onChange={handleChange}
-        name="mat"
+        name="email"
         icon={<FaLock />}
         className="mt-6"
       />

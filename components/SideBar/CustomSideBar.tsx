@@ -34,23 +34,16 @@ const data = {
     //   icon: SquareTerminal,
     // },
     {
-      allowedTo: [
-        { role: "user", category: ["operational", "midel-management"] },
-      ],
-      title: "Fps",
-      url: "#",
+      title: "Spots",
+      url: "/dashboard/parking",
       icon: SquareTerminal,
       isActive: true,
-      items: [
-        {
-          title: "Fps Panel",
-          url: "/dashboard/fps",
-        },
-        {
-          title: "Add Fps",
-          url: "/dashboard/fps/create-fps",
-        },
-      ],
+    },
+    {
+      title: "Door Qr",
+      url: "/dashboard/parking/door",
+      icon: SquareTerminal,
+      isActive: true,
     },
     // {
     //   allowedTo: [

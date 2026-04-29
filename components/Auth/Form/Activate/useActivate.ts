@@ -9,12 +9,12 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface activateType {
-  mat: string;
+  email: string;
   token: string;
 }
 
 const initialActivateState: activateType = {
-  mat: "",
+  email: "",
   token: "",
 };
 
@@ -41,7 +41,7 @@ const useActivate = () => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     const dataToValidate: Record<string, string> = {
-      mat: activateData.mat,
+      email: activateData.email,
       token: activateData.token,
     };
     const newErrors = validateFormFields(
@@ -56,14 +56,14 @@ const useActivate = () => {
       e,
       {},
       {
-        mat: activateData.mat,
+        email: activateData.email,
         token: activateData.token,
       },
       (formData) =>
         dispatch(activate({ data: formData })).then((e: any) => {
           if (!e.error) {
             router.push(
-              `/auth/set-password?token=${activateData.token}&mat=${activateData.mat}`
+              `/auth/set-password?token=${activateData.token}&email=${activateData.email}`
             );
           }
         }),

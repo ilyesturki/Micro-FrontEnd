@@ -12,7 +12,8 @@
       "submitButton": "Se Connecter",
       "usernameLabel": "Nom d'utilisateur",
       "passwordLabel": "Mot de passe",
-      "forgotPasswordButton": "Mot de passe oublié?"
+      "forgotPasswordButton": "Mot de passe oublié?",
+      "createAccountButton": "Créer un compte"
     }
   },
 
@@ -20,7 +21,8 @@
     "title": "Récupérer le compte",
     "form": {
       "submitButton": "Envoyer le code",
-      "usernameLabel": "Nom d'utilisateur"
+      "usernameLabel": "Nom d'utilisateur",
+      "createAccountButton": "Créer un compte"
     }
   },
   "VerifyResetCodePage": {
@@ -52,7 +54,7 @@
     }
   },
   "CreateUserPage": {
-    "pageTitle": "Créer un nouvel utilisateur",
+    "title": "Créez votre compte",
     "firstNameLabel": "Prénom de l'utilisateur",
     "firstNamePlaceholder": "Entrez le prénom de l'utilisateur",
     "lastNameLabel": "Nom de l'utilisateur",
@@ -69,7 +71,11 @@
     "imageLabel": "Image de l'utilisateur",
     "imagePlaceholder": "Déposez votre image ici, ou parcourez",
     "mainButton": "Enregistrer",
-    "secondaryButton": "Réinitialiser"
+    "secondaryButton": "Réinitialiser",
+
+    "forgotPasswordButton": "Mot de passe oublié?",
+    "submitButton": "Enregistrer",
+    "signInButton": "Retour à la connexion"
   },
   "EditUserPage": {
     "firstNameLabel": "Prénom de l'utilisateur",

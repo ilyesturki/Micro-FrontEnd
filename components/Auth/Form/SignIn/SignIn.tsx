@@ -5,7 +5,7 @@ import Link from "next/link";
 import AuthButton from "../../subcomponents/AuthButton";
 import useSignIn from "./useSignIn";
 import CustomAuthInput from "@/components/Common/CustomInput/CustomAuthInput";
- 
+
 import { useTranslations } from "next-intl";
 
 const SignInForm = ({ AuthButtonTitle }: { AuthButtonTitle: string }) => {
@@ -30,12 +30,26 @@ const SignInForm = ({ AuthButtonTitle }: { AuthButtonTitle: string }) => {
         icon={<FaLock />}
         className="mt-6"
       />
-      <Link
+      {/* <Link
         href="/auth/forget-password"
         className="block text-right text-grayscale-500 text-sm font-medium mt-2 hover:text-greenAccent-900"
       >
         {t("forgotPasswordButton")}
-      </Link>
+      </Link> */}
+      <div className="flex justify-between items-center  mx-0.5">
+        <Link
+          href="/auth/signup"
+          className="block text-right text-grayscale-500 text-sm font-medium mt-2.5 hover:text-greenAccent-900"
+        >
+          {t("createAccountButton")}
+        </Link>
+        <Link
+          href="/auth/forget-password"
+          className="block text-right text-grayscale-500 text-sm font-medium mt-2.5 hover:text-greenAccent-900"
+        >
+          {t("forgotPasswordButton")}
+        </Link>
+      </div>
       <AuthButton
         title={AuthButtonTitle}
         onClick={handleSubmit}

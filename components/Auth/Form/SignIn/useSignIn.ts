@@ -33,14 +33,12 @@ const useSignIn = () => {
 
   useEffect(() => {
     if (!session?.user) return;
-    const role = session?.user.role;
-    const userCategory = session?.user.userCategory;
-    const redirectTo =
-      role === "admin"
-        ? "/dashboard/users"
-        : ["top-management", "corporaite"].includes(userCategory || "")
-        ? "/dashboard/panel/fps-panel"
-        : "/dashboard/fps";
+    const redirectTo = "/dashboard/parking";
+    // role === "admin"
+    //   ? "/dashboard/users"
+    //   : ["top-management", "corporaite"].includes(userCategory || "")
+    //   ? "/dashboard/panel/fps-panel"
+    //   : "/dashboard/fps";
     router.push(redirectTo);
   }, [session]);
 

@@ -11,16 +11,12 @@ import {
 
 export interface UserType {
   id: number;
-  mat: string;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   image?: string;
   password?: string;
-  role: "user" | "admin";
-  userCategory: string;
-  userService: string;
   status: "active" | "inactive";
 }
 

@@ -5,6 +5,7 @@ import { FiMenu, FiX } from "react-icons/fi";
 import LocaleSwitcher from "@/components/Common/LocaleSwitcher";
 import ThemeToggle from "@/components/Common/ThemeToggle/ThemeToggle";
 import Notifications from "@/components/Common/Notifications/Notifications";
+import ScanButton from "../Header/ScanButton";
 
 const CustomDropDownMenu = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,6 +15,7 @@ const CustomDropDownMenu = () => {
       {/* Desktop view - always visible */}
       <div className="hidden md:flex items-center gap-2">
         <Notifications />
+        <ScanButton />
         <ThemeToggle />
         <LocaleSwitcher />
       </div>

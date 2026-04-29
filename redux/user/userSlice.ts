@@ -15,8 +15,6 @@ export interface UserType {
   password?: string;
   image?: string;
   status: "active" | "inactive";
-  userCategory: string;
-  userService: string;
 }
 
 export type UserTypeWithoutId = Omit<UserType, "id">;

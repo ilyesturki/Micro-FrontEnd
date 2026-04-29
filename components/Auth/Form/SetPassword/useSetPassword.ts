@@ -9,13 +9,13 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface setPasswordType {
-  mat: string;
+  email: string;
   token: string;
   password: string;
 }
 
 const initialSetPasswordState: setPasswordType = {
-  mat: "",
+  email: "",
   token: "",
   password: "",
 };
@@ -33,9 +33,9 @@ const useSetPassword = () => {
 
   useEffect(() => {
     const token = params.get("token") as string | undefined;
-    const mat = params.get("mat") as string | undefined;
-    if (token && mat) {
-      setSetPasswordData({ ...setPasswordData, token, mat });
+    const email = params.get("email") as string | undefined;
+    if (token && email) {
+      setSetPasswordData({ ...setPasswordData, token, email });
     }
   }, [params]);
 
@@ -45,7 +45,7 @@ const useSetPassword = () => {
 
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     const dataToValidate: Record<string, string> = {
-      mat: setPasswordData.mat,
+      email: setPasswordData.email,
       token: setPasswordData.token,
       password: setPasswordData.password,
     };
@@ -61,7 +61,7 @@ const useSetPassword = () => {
       e,
       {},
       {
-        mat: setPasswordData.mat,
+        email: setPasswordData.email,
         token: setPasswordData.token,
         newPassword: setPasswordData.password,
       },
