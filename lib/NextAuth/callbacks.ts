@@ -5,6 +5,7 @@ import { AdapterUser } from "next-auth/adapters";
 declare module "next-auth" {
   interface User {
     id?: string;
+    role?: string;
     token?: string;
     firstName?: string;
     lastName?: string;
@@ -14,6 +15,7 @@ declare module "next-auth" {
   interface Session {
     user: {
       id?: string;
+      role?: string;
       firstName: string;
       lastName: string;
       email?: string;
@@ -32,6 +34,7 @@ export const jwtCallback = async ({
 }): Promise<JWT> => {
   if (user) {
     token.id = user.id;
+    token.role = user.role;
     token.token = user.token;
     token.firstName = user.firstName;
     token.lastName = user.lastName;
@@ -49,6 +52,7 @@ export const sessionCallback = async ({
 }): Promise<Session> => {
   if (session.user) {
     session.user.id = token.id as string;
+    session.user.role = token.role as string;
     session.user.token = token.token as string;
     session.user.firstName = token.firstName as string;
     session.user.lastName = token.lastName as string;

@@ -49,7 +49,7 @@
     "title": "Activate Account",
     "form": {
       "submitButton": "Activate",
-      "employeeNumberLabel": "Employee Number"
+      "employeeNumberLabel": "Email"
     }
   },
   "CreateUserPage": {

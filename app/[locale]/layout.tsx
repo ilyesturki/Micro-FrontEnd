@@ -26,8 +26,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ARADIS",
-  description: "ARADIS",
+  title: "Smart Parking",
+  description: "Smart Parking",
   icons: {
     icon: "/imgs/right-logo.png", // Path to your icon in public directory
   },

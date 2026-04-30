@@ -50,7 +50,7 @@
     "title": "Activer le compte",
     "form": {
       "submitButton": "Activer",
-      "employeeNumberLabel": "Matricule"
+      "employeeNumberLabel": "Email"
     }
   },
   "CreateUserPage": {

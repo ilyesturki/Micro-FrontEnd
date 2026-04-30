@@ -1,8 +1,8 @@
-"use client"; 
+"use client";
 import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
-const SOCKET_URL = "wss://aradis-backend.onrender.com"; 
+const SOCKET_URL = "wss://micro-backend-nf3s.onrender.com";
 
 export const useSocket = () => {
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -10,20 +10,19 @@ export const useSocket = () => {
 
   useEffect(() => {
     const newSocket = io(SOCKET_URL, {
-      transports: ["websocket"], 
+      transports: ["websocket"],
     });
 
-    setSocket(newSocket); 
+    setSocket(newSocket);
 
-    newSocket.on("connect", () => {
-    });
+    newSocket.on("connect", () => {});
 
     newSocket.on("serverMessage", (data: string) => {
       setMessage(data);
     });
 
     return () => {
-      newSocket.disconnect(); 
+      newSocket.disconnect();
     };
   }, []);
 

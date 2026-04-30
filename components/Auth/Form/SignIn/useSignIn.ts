@@ -33,12 +33,9 @@ const useSignIn = () => {
 
   useEffect(() => {
     if (!session?.user) return;
-    const redirectTo = "/dashboard/parking";
-    // role === "admin"
-    //   ? "/dashboard/users"
-    //   : ["top-management", "corporaite"].includes(userCategory || "")
-    //   ? "/dashboard/panel/fps-panel"
-    //   : "/dashboard/fps";
+    const role = session?.user.role;
+    const redirectTo =
+      role === "admin" ? "/dashboard/parking/door" : "/dashboard/parking";
     router.push(redirectTo);
   }, [session]);
 

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Bot, SquareTerminal,SquareParking,QrCode } from "lucide-react";
+import { Bot, SquareTerminal, SquareParking, QrCode } from "lucide-react";
 
 import { NavMain } from "./nav-main";
 import { UserNav } from "./UserNav";
@@ -17,7 +17,6 @@ import SignOutButton from "./SignOutButton";
 
 const data = {
   navMain: [
-  
     {
       title: "Spots",
       url: "/dashboard/parking",
@@ -25,51 +24,11 @@ const data = {
       isActive: true,
     },
     {
+      allowedTo: [{ role: "admin" }],
       title: "Door Qr",
       url: "/dashboard/parking/door",
       icon: QrCode,
       isActive: true,
-    },
-
-    {
-      allowedTo: [{ role: "user", category: ["top-management", "corporaite"] }],
-      title: "Tag",
-      url: "/dashboard/panel/tag-panel",
-      icon: SquareTerminal,
-    },
-    // {
-    //   allowedTo: [{ role: "user", category: ["top-management", "corporaite"] }],
-    //   title: "Dashboard",
-    //   url: "/dashboard",
-    //   icon: SquareTerminal,
-    // },
-    // {
-    //   allowedTo: [{ role: "user", category: ["top-management", "corporaite"] }],
-    //   title: "Planing",
-    //   url: "/planing",
-    //   icon: SquareTerminal,
-    // },
-    // {
-    //   allowedTo: [{ role: "user", category: ["top-management", "corporaite"] }],
-    //   title: "Audit",
-    //   url: "/audit",
-    //   icon: SquareTerminal,
-    // },
-    {
-      allowedTo: [{ role: "admin" }],
-      title: "Users",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Users Panel",
-          url: "/dashboard/users",
-        },
-        {
-          title: "Add User",
-          url: "/dashboard/users/create-user",
-        },
-      ],
     },
   ],
 };
@@ -100,7 +59,7 @@ export function CustomSideBar({
 
       {/* CONTENT */}
       <SidebarContent className="py-4 space-y-2">
-        <NavMain items={data.navMain} />
+        <NavMain items={data.navMain} role={session?.user?.role} />
       </SidebarContent>
 
       {/* FOOTER */}

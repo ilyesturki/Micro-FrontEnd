@@ -26,6 +26,7 @@ const credentialsProvider = CredentialsProvider({
       return {
         ...user.data,
         token: user.token,
+        role: user.data.role,
         firstName: user.data.firstName,
         lastName: user.data.lastName,
         image: user.data.image,
