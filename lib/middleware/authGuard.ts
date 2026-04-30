@@ -4,50 +4,42 @@ import { getToken } from "next-auth/jwt";
 export async function authGuard(
   req: NextRequest
 ): Promise<NextResponse | void> {
-  // const url = req.nextUrl;
-  // const pathname = url.pathname;
+  const url = req.nextUrl;
+  const pathname = url.pathname;
 
-  // const normalizedPathname = pathname.replace(/^\/(fr|en)\//, "/");
+  const normalizedPathname = pathname.replace(/^\/(fr|en)\//, "/");
 
-  // const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  // const role = typeof token?.role === "string" ? token.role : undefined;
+  const role = typeof token?.role === "string" ? token.role : undefined;
   // const userCategory =
   //   typeof token?.userCategory === "string" ? token.userCategory : undefined;
   // const userService =
   //   typeof token?.userService === "string" ? token.userService : undefined;
 
-  // if (normalizedPathname.startsWith("/auth")) {
-  //   if (token) {
-  //     const redirectTo =
-  //       role === "admin"
-  //         ? "/dashboard/users"
-  //         : ["top-management", "corporaite"].includes(userCategory || "")
-  //         ? "/dashboard/panel/fps-panel"
-  //         : "/dashboard/fps";
-  //     return NextResponse.redirect(new URL(redirectTo, req.url));
-  //   }
-  //   return;
-  // }
+  if (normalizedPathname.startsWith("/auth")) {
+    if (token) {
+      const redirectTo =
+        role === "admin" ? "/dashboard/parking/door" : "/dashboard/parking";
+      return NextResponse.redirect(new URL(redirectTo, req.url));
+    }
+    return;
+  }
 
-  // if (!token) {
-  //   return NextResponse.redirect(new URL("/auth/login", req.url));
-  // }
+  if (!token) {
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+  }
 
-  // if (["/en", "/fr"].includes(normalizedPathname)) {
-  //   const redirectTo =
-  //     role === "admin"
-  //       ? "/dashboard/users"
-  //       : ["top-management", "corporaite"].includes(userCategory || "")
-  //       ? "/dashboard/panel/fps-panel"
-  //       : "/dashboard/fps";
-  //   return NextResponse.redirect(new URL(redirectTo, req.url));
-  // }
+  if (["/en", "/fr"].includes(normalizedPathname)) {
+    const redirectTo =
+      role === "admin" ? "/dashboard/parking/door" : "/dashboard/parking";
+    return NextResponse.redirect(new URL(redirectTo, req.url));
+  }
 
-  // if (normalizedPathname.startsWith("/dashboard/users")) {
-  //   if (role === "admin") return;
-  //   return redirectUnauthorized(req);
-  // }
+  if (normalizedPathname.startsWith("/dashboard/parking/door")) {
+    if (role === "admin") return;
+    return redirectUnauthorized(req);
+  }
 
   // if (normalizedPathname.startsWith("/dashboard/panel")) {
   //   const allowedCategories = ["top-management", "corporaite"];
