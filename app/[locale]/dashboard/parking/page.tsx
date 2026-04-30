@@ -24,9 +24,9 @@ export default function ParkingDashboard() {
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <div className="flex items-center gap-3">
-              <ParkingCircle className="h-9 w-9" />
+              <ParkingCircle className="h-9 w-9 text-green-900" />
               <div>
-                <h1 className="text-3xl font-bold tracking-tight">
+                <h1 className="text-3xl font-bold tracking-tight text-green-900">
                   Smart Parking Dashboard
                 </h1>
                 <p className="text-sm text-slate-500">

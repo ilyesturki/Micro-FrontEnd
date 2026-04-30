@@ -14,18 +14,18 @@ const WebsiteCustomLogo = () => {
         <div className="w-full flex justify-center">
           <div className="flex pt-4 pb-5 items-center gap-1 overflow-hidden ">
             <Image
-              src="/imgs/araTwo.png"
+              src="/imgs/right-logo.png"
               alt="ara"
               width={400}
               height={400}
-              className="h-auto w-12"
+              className="h-auto w-14"
             />
             <Image
-              src="/imgs/aradisName.png"
+              src="/imgs/logo.png"
               alt="ara"
               width={400}
               height={400}
-              className="h-8 w-auto"
+              className="h-16 w-auto"
             />
 
             {/* <div className="text-left text-2xl text-grayscale-100 text-opacity-80">

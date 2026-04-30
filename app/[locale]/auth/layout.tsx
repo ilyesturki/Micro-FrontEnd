@@ -9,8 +9,8 @@ export default function RootLayout({
   return (
     <div className="relative overflow-hidden ">
       <img
-        className="absolute left-8 top-[18px] h-7 "
-        src="/imgs/aradisFoor.png"
+        className="absolute left-14 top-2.5 h-16 "
+        src="/imgs/samrtParkingLogo.png"
       />
       <LocaleSwitcher className="absolute right-8 top-[18px]" />
       <img

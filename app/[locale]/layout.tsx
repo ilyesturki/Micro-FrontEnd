@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   title: "ARADIS",
   description: "ARADIS",
   icons: {
-    icon: "/imgs/ara.png", // Path to your icon in public directory
+    icon: "/imgs/right-logo.png", // Path to your icon in public directory
   },
 };
 

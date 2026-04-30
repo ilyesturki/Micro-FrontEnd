@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Bot, SquareTerminal } from "lucide-react";
+import { Bot, SquareTerminal,SquareParking,QrCode } from "lucide-react";
 
 import { NavMain } from "./nav-main";
 import { UserNav } from "./UserNav";
@@ -17,71 +17,20 @@ import SignOutButton from "./SignOutButton";
 
 const data = {
   navMain: [
-    // {
-    //   allowedTo: [
-    //     { role: "user", category: ["operational", "midel-management"] },
-    //   ],
-    //   title: "Auto MTCE",
-    //   url: "/auto-mtce",
-    //   icon: SquareTerminal,
-    // },
-    // {
-    //   allowedTo: [
-    //     { role: "user", category: ["operational", "midel-management"] },
-    //   ],
-    //   title: "Diag MTCE",
-    //   url: "/diag-mtce",
-    //   icon: SquareTerminal,
-    // },
+  
     {
       title: "Spots",
       url: "/dashboard/parking",
-      icon: SquareTerminal,
+      icon: SquareParking,
       isActive: true,
     },
     {
       title: "Door Qr",
       url: "/dashboard/parking/door",
-      icon: SquareTerminal,
+      icon: QrCode,
       isActive: true,
     },
-    // {
-    //   allowedTo: [
-    //     { role: "user", category: ["operational", "midel-management"] },
-    //   ],
-    //   title: "Audit",
-    //   url: "/audit",
-    //   icon: SquareTerminal,
-    // },
-    // {
-    //   allowedTo: [
-    //     { role: "user", category: ["operational", "midel-management"] },
-    //   ],
-    //   title: "Planing",
-    //   url: "/planing",
-    //   icon: SquareTerminal,
-    // },
-    // {
-    //   allowedTo: [
-    //     { role: "user", category: ["operational", "midel-management"] },
-    //   ],
-    //   title: "Dashboard",
-    //   url: "/dashboard",
-    //   icon: SquareTerminal,
-    // },
 
-    {
-      allowedTo: [{ role: "user", category: ["top-management", "corporaite"] }],
-      title: "Fps",
-      url: "/dashboard/panel/fps-panel",
-      icon: SquareTerminal,
-    },
-    // {
-    //   allowedTo: [{ role: "user", category: ["top-management", "corporaite"] }],
-    //   title: "Auto-MTCE",
-    //   url: "/dashboard/panel/auto-mtce",
-    //   icon: SquareTerminal,
-    // },
     {
       allowedTo: [{ role: "user", category: ["top-management", "corporaite"] }],
       title: "Tag",
@@ -130,24 +79,35 @@ export function CustomSideBar({
   ...props
 }: { session: any } & React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
+    <Sidebar
+      collapsible="icon"
+      className="border-r bg-white/80 backdrop-blur-md"
+      {...props}
+    >
+      {/* HEADER */}
+      <SidebarHeader className="pt-4 pb-2 border-b">
         <WebsiteCustomLogo />
-        <UserNav
-          image={session?.user?.image}
-          firstName={session?.user?.firstName}
-          lastName={session?.user?.lastName}
-          email={session?.user?.email}
-        />
+
+        <div className="mt-3">
+          <UserNav
+            image={session?.user?.image}
+            firstName={session?.user?.firstName}
+            lastName={session?.user?.lastName}
+            email={session?.user?.email}
+          />
+        </div>
       </SidebarHeader>
-      <SidebarContent>
-        <NavMain
-          items={data.navMain}
-        />
+
+      {/* CONTENT */}
+      <SidebarContent className="py-4 space-y-2">
+        <NavMain items={data.navMain} />
       </SidebarContent>
-      <SidebarFooter>
+
+      {/* FOOTER */}
+      <SidebarFooter className="py-4 border-t">
         <SignOutButton />
       </SidebarFooter>
+
       <SidebarRail />
     </Sidebar>
   );

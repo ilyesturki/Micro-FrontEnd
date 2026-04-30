@@ -28,23 +28,30 @@ export function UserNav({
         <SidebarMenuButton
           size="lg"
           tooltip={`${firstName} ${lastName}`}
-          className={`data-[state=open]:bg-greenAccent-900 data-[state=open]:text-sidebar-accent-foreground ${
-            open && "bg-greenAccent-900"
-          } hover:bg-greenAccent-900 rounded-[5px] transition-all duration-300`}
+          className={`
+            flex items-center gap-3
+            rounded-lg px-2 py-2
+            hover:bg-gray-100
+            data-[state=open]:bg-gray-100
+            transition-all duration-200
+          `}
         >
           <Avatar
             className={`${
-              open ? "ml-1 h-10 w-10 rounded-full" : "h-8 w-8 rounded-md"
+              open ? "h-9 w-9 rounded-full" : "h-8 w-8 rounded-lg"
             } transition-all duration-300`}
           >
             <AvatarImage src={image} alt={firstName} />
-            <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+            <AvatarFallback className="bg-gray-200 text-gray-600 rounded-full">
+              {firstName?.[0]}
+              {lastName?.[0]}
+            </AvatarFallback>
           </Avatar>
-          <div className="ml-1 grid flex-1 text-left text-sm leading-tight ">
-            <span className="truncate font-semibold text-grayscale-100">
+          <div className="flex flex-col text-left text-sm leading-tight">
+            <span className="truncate font-semibold text-gray-900">
               {firstName} {lastName}
             </span>
-            <span className="truncate text-xs font-medium text-grayscale-100 text-opacity-60">
+            <span className="truncate text-xs font-medium text-gray-900 text-opacity-60">
               {email}
             </span>
           </div>

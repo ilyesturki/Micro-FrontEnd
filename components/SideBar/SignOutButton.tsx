@@ -11,15 +11,24 @@ const SignOutButton = () => {
   const handleSignOut = () => {
     signOut({ redirect: true, callbackUrl: "/auth/login" });
   };
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton
           onClick={handleSignOut}
-          tooltip="log out"
-          className="overflow-hidden flex items-center w-fit max-w-full px-5 !h-10 mx-auto text-base font-semibold !bg-redAccent-900 hover:!bg-opacity-70 !text-grayscale-100 transition-all duration-500"
+          tooltip="Log out"
+          className="
+            w-full flex items-center gap-2
+            px-4 py-5 rounded-lg
+            text-sm font-semibold
+            bg-red-500/20 text-red-600
+            hover:bg-red-500/20
+            hover:text-red-900
+            transition-all duration-200
+          "
         >
-          <LogOut className=" w-6 h-6 mr-1.5 rotate-180" />
+          <LogOut className="w-5 h-5 rotate-180" />
           <span>Log out</span>
         </SidebarMenuButton>
       </SidebarMenuItem>

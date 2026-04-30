@@ -26,7 +26,7 @@ const DoorQrDisplay = () => {
     <div className="w-full h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4">
       {/* HEADER */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 tracking-tight">
+        <h1 className="text-3xl font-bold text-green-900 tracking-tight">
           Smart Parking Access
         </h1>
         <p className="text-gray-500 mt-2">Scan the QR code to open the gate</p>
@@ -72,14 +72,21 @@ const DoorQrDisplay = () => {
       </div>
 
       {/* TIMER */}
-      <div className="mt-6 text-gray-600 text-sm">
-        Refreshing in{" "}
-        <span className="font-semibold text-gray-900">{timeLeft}s</span>
-      </div>
+      <div className="px-4 w-[320px] h-[60px] flex items-center justify-between">
+        <div className="opacity-70">
+          <Image
+            src="/imgs/samrtParkingLogo.png"
+            alt="logo"
+            width={80}
+            height={80}
+          />
+        </div>
+        <div className="text-gray-600 text-sm">
+          Refreshing in{" "}
+          <span className="font-semibold text-green-700">{timeLeft}s</span>
+        </div>
 
-      {/* FOOTER */}
-      <div className="mt-10 opacity-60">
-        <Image src="/imgs/aradisTwo.png" alt="logo" width={80} height={80} />
+        {/* FOOTER */}
       </div>
     </div>
   );
